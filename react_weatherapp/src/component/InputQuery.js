@@ -6,7 +6,8 @@ class InputQuery extends Component {
       address:'',
       filteredCities:cities,
       selectedCity:[],
-      error:''
+      error:'',
+      toggle:'none'
      }
 handleSubmit=(e)=>{
     e.preventDefault();
@@ -26,13 +27,14 @@ handleSubmit=(e)=>{
       }else{
         let add = this.state.address.split(',')
 
-        console.log("Send Value ", add);
+       // console.log("Send Value ", add);
         this.props.handleSubmit(add[0], add[1]);
       }
       
     }
     this.setState({
-      address:''
+      address:'',
+      toggle:'none'
     })
 }
 selectOption=(a,b)=>{
@@ -74,7 +76,11 @@ handleChange=(e)=>{
     });
 
 }
-
+showFilter =()=>{
+  this.setState({
+    toggle:'block'
+  })
+}
     render() {
      
         
@@ -82,7 +88,7 @@ handleChange=(e)=>{
           <form>
           <div className="search">
                   <input type="text" id="city" required="required"
-                  placeholder=""
+                  placeholder="Search For a City..."
                   name="address"
                   onChange={this.handleChange}
                   onFocus={this.showFilter}
@@ -92,7 +98,7 @@ handleChange=(e)=>{
                   <button type="submit" className="searchButton" onClick={this.handleSubmit }>?
                   </button>
            </div>
-                  <ul className="input__list none" >
+                  <ul className="input__list " style={{display:this.state.toggle}}>
                   {this.state.filteredCities.splice(0,5).map((city,index)=>
                         <li key={index} onClick={()=>{this.selectOption(city.city,city.country)}}
                         >{city.city},{city.country}

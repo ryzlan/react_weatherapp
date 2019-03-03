@@ -80,7 +80,7 @@ class App extends Component {
           city:obj.city,
           country_code:obj.country
         });
-        this.getPicture(obj.des+" weather" );
+        this.getPicture(obj.des+" nature" );
        //this.getForcastedWeather(this.state.city , this.state.country_code);
 
     } catch (error) {
@@ -200,10 +200,10 @@ try {
    await unsplash.search.photos(query, 1 , 10 )
     .then(res => res.json())
     .then(json => {
-      console.log(json);
+     // console.log(json);
       this.setState({
         loading:false,
-        img:json.results[3].urls.regular,
+        img:json.results[2].urls.regular,
         error_picture:null,
       })
     })
@@ -217,7 +217,7 @@ try {
   }
 
   handleSubmit=(city, country)=>{
-    console.log(city, country);
+   /// console.log(city, country);
     this.setState({
       loading:true
 
@@ -244,7 +244,7 @@ resetError=()=>{
       return (
         <div className="App">
           <div className="search__container">
-  
+            <h1>React Weather App</h1>
             <InputQuery handleSubmit={this.handleSubmit} />
           </div>
           <div className="container">
@@ -265,7 +265,7 @@ resetError=()=>{
            {error_hourly ?
                    <ErrorHandler msg={error_hourly}  resetError={this.resetError}/> : 
                    <div className="text-centr">
-                    <h1>Next 48 hours </h1>
+                    <h1>Next 24 hours </h1>
                      <Graph data={this.state.CurrentGraphData} /> 
                    </div>
               }
